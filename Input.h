@@ -3,6 +3,7 @@
 
 #include "Core.h"
 #include "TimeBased.h"
+#include "RenderVid.h"
 
 void keyCallback(GLFWwindow *, int, int, int, int);
 //void cursorPosCallback(GLFWwindow *, double, double);

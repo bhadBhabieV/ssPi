@@ -6,6 +6,8 @@ void timeBasedStuff()
     myAbj.currentFrameTime = chrono::steady_clock::now();
     myAbj.deltaFrameTime = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.lastFrameTime).count();
     myAbj.lastFrameTime = myAbj.currentFrameTime;
+
+    pollController();
 }
 
 int timeHHMMSS_toSec(string inTimeHHMMSS, bool colon)
@@ -59,4 +61,36 @@ string secToHHMMSS(int inSec)
     ss << setfill('0') << setw(2) << HH << ":" << setw(2) << MM << ":" << setw(2) << SS;
 
     return ss.str();
+}
+
+string getTime(string editModeMatch)
+{
+    for (auto &i : myAbj.videoKernelVec)
+    {
+        if (i.editModeHotkey == editModeMatch)
+        {
+            double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
+            durSinceLastStart = glm::max(0, int(durSinceLastStart - 2)); //
+
+            int durSinceLastStartRounded = roundNumber(durSinceLastStart);
+
+            int HH, MM, SS;
+
+//            cout << "i.secUsableRoundedStored BEFORE = " << i.secUsableRoundedStored << endl;
+            SS = (i.secUsableRoundedStored + (durSinceLastStartRounded)) % 60;
+            i.secUsableRoundedStored += durSinceLastStartRounded;
+//            cout << "i.secUsableRoundedStored AFTER = " << i.secUsableRoundedStored << endl;
+
+            MM = (durSinceLastStartRounded / 60) % 60;
+            HH = MM / 60;
+
+            stringstream rr;
+            rr << setfill('0') << setw(2) << HH << ":" << setw(2) << MM << ":" << setw(2) << SS;
+//            cout << "HH:MM:SS getTime() = " << rr.str() << endl;
+
+            return rr.str();
+        }
+    }
+
+    return "getTime() error";
 }

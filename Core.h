@@ -58,6 +58,14 @@ typedef struct
 
 typedef struct
 {
+    bool resetTimer;
+    chrono::steady_clock::time_point startTime, loopTimeStart;
+    float deltaTime;
+
+} PollController;
+
+typedef struct
+{
     vector<VideoDescript> videoDescriptVec;
 
     bool playTgl;
@@ -108,8 +116,9 @@ typedef struct
 
     float deltaFrameTime;
     chrono::steady_clock::time_point currentFrameTime, lastFrameTime, loopTimeStart;
-} Abj;
 
+    PollController pollController1;
+} Abj;
 
 
 int roundNumber(double);
@@ -117,19 +126,7 @@ vector<string> stringSplit(string, string);
 string GetFileName(string &);
 string RemoveSuffix(string &);
 
-string getFileSpeed(string &);
-string getFileDuration(string &);
-string getTime(string);
-
 void myAbjInit();
-
-
-
-
-void playPauseVid(string);
-void muteVid(string);
-void volumeUpDown(string, string);
-void speedUpOrSlowDown(string, string);
 
 
 extern Abj myAbj;

@@ -1,5 +1,32 @@
 #include "RenderVid.h"
 
+//typedef struct
+//{
+//    bool resetTimer;
+//    chrono::steady_clock::time_point startTime, loopTimeStart;
+//    float deltaTime;
+//
+//} PollController;
+
+void pollController()
+{
+    if (myAbj.pollController1.resetTimer)
+    {
+        myAbj.pollController1.loopTimeStart = myAbj.currentFrameTime; //
+        myAbj.pollController1.resetTimer = 0;
+    }
+
+    int pollControllerTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.pollController1.loopTimeStart).count();
+    cout << "pollControllerTimeMS = " << pollControllerTimeMS << endl;
+
+
+    if (pollControllerTimeMS > 50)
+    {
+        myAbj.pollController1.resetTimer = 1;
+        myAbj.pollController1.startTime = chrono::steady_clock::now();
+    }
+}
+
 
 void loopVideo()
 {
@@ -43,4 +70,143 @@ void loopVideo()
         }
     }
 
+}
+
+void playPauseVid(string appliesTo)
+{
+    for (auto &i : myAbj.videoKernelVec)
+    {
+        if ( (appliesTo == "indy" && i.editModeHotkey == myAbj.editModeVec[myAbj.editModeIdx]) || appliesTo == "all")
+        {
+            i.playTgl = !i.playTgl;
+
+            if (!i.playTgl) //PAUSE the file at the stored time
+            {
+                i.time = getTime(i.editModeHotkey);
+                i.resetPlayTimer = 1;
+            }
+
+            else //PLAY the file at the stored time
+            {
+                stringstream ss;
+                ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+                system(ss.str().c_str());
+
+                i.startTime = chrono::steady_clock::now(); //
+                i.resetPlayTimer = 1;
+            }
+
+//            cout << "time playPauseVid() = " << i.time << endl;
+        }
+    }
+}
+
+void muteVid(string appliesTo)
+{
+    for (auto &i : myAbj.videoKernelVec)
+    {
+        if ( (appliesTo == "indy" && i.editModeHotkey == myAbj.editModeVec[myAbj.editModeIdx]) || appliesTo == "all")
+        {
+            i.muteTgl = !i.muteTgl;
+            i.volUsable = (i.muteTgl) ? -8000 : myAbj.volumePercentVec[i.volumePercentVecIdx].volume;
+
+            if (i.playTgl)
+            {
+                i.playTgl = 0;
+                i.time = getTime(i.editModeHotkey);
+
+                stringstream ss;
+                ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+                system(ss.str().c_str());
+
+                i.startTime = chrono::steady_clock::now();
+                i.resetPlayTimer = 1;
+                i.playTgl = 1;
+            }
+        }
+    }
+}
+
+void speedUpOrSlowDown(string myOperation, string appliesTo)
+{
+    for (auto &i : myAbj.videoKernelVec)
+    {
+        if ( (appliesTo == "indy" && i.editModeHotkey == myAbj.editModeVec[myAbj.editModeIdx]) || appliesTo == "all")
+        {
+            float speedOld = myAbj.speedPercentVec[i.speedIdx];
+            i.speedIdx = (myOperation == "decrease") ? glm::clamp(i.speedIdx - 1, 0, 8) : glm::clamp(i.speedIdx + 1, 0, 8);
+            float speedNew = myAbj.speedPercentVec[i.speedIdx];
+
+            string usableTimeOld = getTime(i.editModeHotkey); /////
+
+            int usableTimeSecOld = timeHHMMSS_toSec(usableTimeOld, 1);
+            int timeSec100 = usableTimeSecOld * speedOld;
+            int usableTimeSecNew = timeSec100 / speedNew;
+
+            /* convert storedTime for next time */
+            float storedSecTo100 = i.secUsableRoundedStored * speedOld;
+            float storedSecNewSpeed = storedSecTo100 / speedNew;
+            i.secUsableRoundedStored = storedSecNewSpeed;
+
+            for (auto &j : i.videoDescriptVec)
+            {
+                if (j.speed == myAbj.speedPercentVec[i.speedIdx])
+                {
+                    i.pathCurrent = j.pathFull;
+                    i.time = secToHHMMSS(glm::clamp(usableTimeSecNew, 0, j.secDuration - 1));
+//                    i.time = secToHHMMSS(usableTimeSecNew);
+
+                    cout << endl;
+//                    cout << "j.secDuration = " << j.secDuration << endl;
+//                    cout << "usableTimeSecOld = " << usableTimeSecOld << endl;
+//                    cout << "usableTimeOld in HHMMSS = " << usableTimeOld << endl;
+//                    cout << "speedOld = " << speedOld << endl;
+//                    cout << "timeSec100 = " << timeSec100 << endl;
+//                    cout << "speedNew = " << speedNew << endl;
+//                    cout << "usableTimeSecNew = " << usableTimeSecNew << endl;
+//                    cout << "i.time = " << i.time << endl;
+//                    cout << "i.pathCurrent = " << i.pathCurrent << endl;
+
+                    cout << "speedNew = " << speedNew << endl;
+                    cout << endl;
+                }
+            }
+
+            bool playTglStored = i.playTgl;
+            i.playTgl = 0;
+
+            stringstream ss;
+            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+            system(ss.str().c_str());
+
+            i.startTime = chrono::steady_clock::now();
+            i.playTgl = playTglStored;
+            i.resetPlayTimer = 1;
+        }
+    }
+}
+
+void volumeUpDown(string myOperation, string appliesTo)
+{
+    for (auto &i : myAbj.videoKernelVec)
+    {
+        if ((appliesTo == "indy" && i.editModeHotkey == myAbj.editModeVec[myAbj.editModeIdx]) || appliesTo == "all")
+        {
+            i.volumePercentVecIdx = (myOperation == "decrease") ? glm::clamp(i.volumePercentVecIdx - 1, 0, int(myAbj.volumePercentVec.size())) : glm::clamp(i.volumePercentVecIdx + 1, 0, int(myAbj.volumePercentVec.size()));
+            i.vol = myAbj.volumePercentVec[i.volumePercentVecIdx].volume;
+            i.volUsable = (i.muteTgl) ? -8000 : i.vol;
+
+            bool playTglStored = i.playTgl;
+            i.playTgl = 0;
+            i.time = getTime(i.editModeHotkey);
+
+            stringstream ss;
+            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+            system(ss.str().c_str());
+
+            i.startTime = chrono::steady_clock::now();
+            i.resetPlayTimer = 1;
+            i.playTgl = playTglStored;
+        }
+    }
 }
