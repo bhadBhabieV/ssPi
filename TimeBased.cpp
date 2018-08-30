@@ -10,6 +10,56 @@ void timeBasedStuff()
     pollController();
 }
 
+void pollController()
+{
+    if (myAbj.pollController1.resetTimer)
+    {
+        myAbj.pollController1.loopTimeStart = myAbj.currentFrameTime; //
+        myAbj.pollController1.resetTimer = 0;
+    }
+
+    int pollControllerTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.pollController1.loopTimeStart).count();
+//    cout << "pollControllerTimeMS = " << pollControllerTimeMS << endl;
+
+
+    if (pollControllerTimeMS > 50)
+    {
+        myAbj.pollController1.resetTimer = 1;
+        myAbj.pollController1.startTime = chrono::steady_clock::now();
+
+        //polll here
+        int presentController = glfwJoystickPresent(GLFW_JOYSTICK_1);
+        cout << "presentController = " << presentController << endl;
+
+        if (presentController == 1)
+        {
+            int buttonCt; //11
+            const unsigned char *controllerButtons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &buttonCt);
+            cout << "buttonCt = " << buttonCt << endl;
+
+            int axesCt; //8
+            const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axesCt);
+            cout << "axesCt = " << axesCt << endl;
+
+            for (int i = 0; i < 11; ++i)
+            {
+                if (controllerButtons[i] == GLFW_PRESS)
+                    cout << "pressing button : " << i << endl;
+            }
+
+            for (int i = 0; i < 8; ++i)
+            {
+                cout << "axes " << i << " = " << axes[i] << endl;
+//                if (axes[i] == GLFW_PRESS)
+//                    cout << "pressing button : " << i << endl;
+            }
+
+        }
+    }
+
+}
+
+
 int timeHHMMSS_toSec(string inTimeHHMMSS, bool colon)
 {
     int MMpos, SSpos;

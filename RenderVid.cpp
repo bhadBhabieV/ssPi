@@ -1,31 +1,5 @@
 #include "RenderVid.h"
 
-//typedef struct
-//{
-//    bool resetTimer;
-//    chrono::steady_clock::time_point startTime, loopTimeStart;
-//    float deltaTime;
-//
-//} PollController;
-
-void pollController()
-{
-    if (myAbj.pollController1.resetTimer)
-    {
-        myAbj.pollController1.loopTimeStart = myAbj.currentFrameTime; //
-        myAbj.pollController1.resetTimer = 0;
-    }
-
-    int pollControllerTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.pollController1.loopTimeStart).count();
-    cout << "pollControllerTimeMS = " << pollControllerTimeMS << endl;
-
-
-    if (pollControllerTimeMS > 50)
-    {
-        myAbj.pollController1.resetTimer = 1;
-        myAbj.pollController1.startTime = chrono::steady_clock::now();
-    }
-}
 
 
 void loopVideo()

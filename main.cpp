@@ -23,8 +23,7 @@ int main(int argc, char *argv[])
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
-    int presentController = glfwJoystickPresent(GLFW_JOYSTICK_1);
-    cout << "presentController = " << presentController << endl;
+
 
 	glfwWindowHint(GLFW_DECORATED, GL_FALSE); //
 
