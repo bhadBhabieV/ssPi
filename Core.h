@@ -110,8 +110,7 @@ typedef struct
     chrono::steady_clock::time_point currentFrameTime, lastFrameTime, loopTimeStart;
 } Abj;
 
-void myAbjInit();
-void loopVideo();
+
 
 int roundNumber(double);
 vector<string> stringSplit(string, string);
@@ -122,9 +121,10 @@ string getFileSpeed(string &);
 string getFileDuration(string &);
 string getTime(string);
 
-int timeHHMMSS_toSec(string, bool);
-string timeHHMMSS(string);
-string secToHHMMSS(int);
+void myAbjInit();
+
+
+
 
 void playPauseVid(string);
 void muteVid(string);

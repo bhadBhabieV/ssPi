@@ -2,10 +2,11 @@
 1529087516 source:/home/pi/Desktop/source/repos/ssPi/Input.cpp
 	"Input.h"
 
-1528908964 /home/pi/Desktop/source/repos/ssPi/Input.h
+1535643537 /home/pi/Desktop/source/repos/ssPi/Input.h
 	"Core.h"
+	"TimeBased.h"
 
-1529035834 /home/pi/Desktop/source/repos/ssPi/Core.h
+1535644064 /home/pi/Desktop/source/repos/ssPi/Core.h
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm.hpp>
@@ -684,8 +685,22 @@
 
 1474630869 /usr/include/glm/gtx/matrix_decompose.inl
 
-1529087320 source:/home/pi/Desktop/source/repos/ssPi/main.cpp
+1535644090 source:/home/pi/Desktop/source/repos/ssPi/main.cpp
 	"Core.h"
 	"Input.h"
+	"TimeBased.h"
 	<glob.h>
+	"RenderVid.h"
+
+1535643426 /home/pi/Desktop/source/repos/ssPi/TimeBased.h
+	"Core.h"
+
+1535643496 source:/home/pi/Desktop/source/repos/ssPi/TimeBased.cpp
+	"TimeBased.h"
+
+1535644373 /home/pi/Desktop/source/repos/ssPi/RenderVid.h
+	"Core.h"
+
+1535644081 source:/home/pi/Desktop/source/repos/ssPi/RenderVid.cpp
+	"RenderVid.h"
 

@@ -7,11 +7,6 @@
 			<Cursor1 position="2999" topLine="78" />
 		</Cursor>
 	</File>
-	<File name="Input.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8199" topLine="232" />
-		</Cursor>
-	</File>
 	<File name="Core.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="2454" topLine="69" />
@@ -20,6 +15,11 @@
 	<File name="Input.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="293" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Input.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8199" topLine="232" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
