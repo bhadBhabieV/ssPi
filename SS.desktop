@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Shadows_Spider
+Icon=/home/pi/Desktop/source/repos/testCB/ssLogo.png
+Exec=sudo /home/pi/Desktop/source/repos/testCB/bin/Debug/testCB
+Type=Application
+Terminal=true
+Categories=None;
