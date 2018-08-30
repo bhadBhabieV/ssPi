@@ -7,7 +7,7 @@ void timeBasedStuff()
     myAbj.deltaFrameTime = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.lastFrameTime).count();
     myAbj.lastFrameTime = myAbj.currentFrameTime;
 
-//    pollController();
+    pollController();
 }
 
 void pollController()
@@ -18,8 +18,27 @@ void pollController()
         myAbj.pollController1.resetTimer = 0;
     }
 
+    if (myAbj.autoRepeatPrevent5.resetTimer)
+    {
+        myAbj.autoRepeatPrevent5.loopTimeStart = myAbj.currentFrameTime; //
+        myAbj.autoRepeatPrevent5.resetTimer = 0;
+    }
+
     int pollControllerTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.pollController1.loopTimeStart).count();
 //    cout << "pollControllerTimeMS = " << pollControllerTimeMS << endl;
+
+
+    int autoRepeatPrevent5TimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.autoRepeatPrevent5.loopTimeStart).count();/// 1000.f;
+//    float autoRepeatPrevent5 = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.autoRepeatPrevent5.loopTimeStart).count() / 1000.f;
+//    cout << "autoRepeatPrevent5TimeMS = " << autoRepeatPrevent5TimeMS << endl;
+
+
+    if (autoRepeatPrevent5TimeMS > 2000)
+    {
+        myAbj.autoRepeatPrevent5.resetTimer = 1;
+        myAbj.autoRepeatPrevent5.startTime = chrono::steady_clock::now();
+    }
+
 
 
     if (pollControllerTimeMS > 50)
@@ -37,45 +56,169 @@ void pollController()
             const unsigned char *controllerButtons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &buttonCt);
 //            cout << "buttonCt = " << buttonCt << endl;
 
-            int axesCt; //8
-            const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axesCt);
-//            cout << "axesCt = " << axesCt << endl;
+//            float
 
-            for (int i = 0; i < 11; ++i)
-            {
-                if (controllerButtons[i] == GLFW_PRESS)
-                    cout << "pressing button : " << i << endl;
-            }
-
-            if (controllerButtons[4] == GLFW_PRESS)
-            {
-                system("killall -9 omxplayer omxplayer.bin");
-                speedUpOrSlowDown("decrease");
-            }
-
-            if (controllerButtons[5] == GLFW_PRESS)
-            {
-                system("killall -9 omxplayer omxplayer.bin");
-                speedUpOrSlowDown("increase");
-            }
-
-            if (controllerButtons[6] == GLFW_PRESS)
-            {
-                myAbj.quitTgl = 1;
-                system("killall -9 omxplayer omxplayer.bin");
-            }
-
-//            for (int i = 0; i < 8; ++i)
+//            if (controllerButtons[5] == GLFW_PRESS)
 //            {
-//                cout << "axes " << i << " = " << axes[i] << endl;
-////                if (axes[i] == GLFW_PRESS)
-////                    cout << "pressing button : " << i << endl;
+//                cout << "pressed 5" << endl;
 //            }
+
+            if (controllerButtons[5] == GLFW_PRESS && autoRepeatPrevent5TimeMS >= 1000)
+            {
+                cout << "pressed 5 w/o autorepeat" << endl;
+
+                myAbj.autoRepeatPrevent5.resetTimer = 1;
+                myAbj.autoRepeatPrevent5.startTime = chrono::steady_clock::now();
+            }
+//
+//            else if (controllerButtons[5] == GLFW_RELEASE)
+//            {
+//                cout << "RELEASED 5" << endl;
+//            }
+
+
+//            myAbj.releaseSeq
 
         }
     }
 
 }
+
+
+//void pollController()
+//{
+//    if (myAbj.pollController1.resetTimer)
+//    {
+//        myAbj.pollController1.loopTimeStart = myAbj.currentFrameTime; //
+//        myAbj.pollController1.resetTimer = 0;
+//    }
+//
+//    int pollControllerTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.pollController1.loopTimeStart).count();
+////    cout << "pollControllerTimeMS = " << pollControllerTimeMS << endl;
+//
+//
+//    if (pollControllerTimeMS > 100)
+//    {
+//        myAbj.pollController1.resetTimer = 1;
+//        myAbj.pollController1.startTime = chrono::steady_clock::now();
+//
+//        //polll here
+//        int presentController = glfwJoystickPresent(GLFW_JOYSTICK_1);
+////        cout << "presentController = " << presentController << endl;
+//
+//        if (presentController == 1)
+//        {
+//            int buttonCt; //11
+//            const unsigned char *controllerButtons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &buttonCt);
+////            cout << "buttonCt = " << buttonCt << endl;
+//
+//            int axesCt; //8
+//            const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axesCt);
+////            cout << "axesCt = " << axesCt << endl;
+//
+////            for (int i = 0; i < 11; ++i)
+////            {
+////                if (controllerButtons[i] == GLFW_PRESS)
+////                    cout << "pressing button : " << i << endl;
+////            }
+//
+//            if (controllerButtons[4] == GLFW_PRESS)
+//            {
+//                system("killall -9 omxplayer omxplayer.bin");
+//                speedUpOrSlowDown("decrease");
+//            }
+//
+//            else if (controllerButtons[5] == GLFW_PRESS)
+//            {
+//                system("killall -9 omxplayer omxplayer.bin");
+//                speedUpOrSlowDown("increase");
+//            }
+//
+////            if (controllerButtons[6] == GLFW_PRESS)
+//////            if (controllerButtons[6] == GLFW_RELEASE)
+////            {
+////                myAbj.quitTgl = 1;
+////                system("killall -9 omxplayer omxplayer.bin");
+////            }
+//
+////            for (int i = 0; i < 8; ++i)
+////            {
+////                cout << "axes " << i << " = " << axes[i] << endl;
+//////                if (axes[i] == GLFW_PRESS)
+//////                    cout << "pressing button : " << i << endl;
+////            }
+//
+//        }
+//    }
+//
+//}
+
+//void pollController()
+//{
+//    if (myAbj.pollController1.resetTimer)
+//    {
+//        myAbj.pollController1.loopTimeStart = myAbj.currentFrameTime; //
+//        myAbj.pollController1.resetTimer = 0;
+//    }
+//
+//    int pollControllerTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.pollController1.loopTimeStart).count();
+////    cout << "pollControllerTimeMS = " << pollControllerTimeMS << endl;
+//
+//
+//    if (pollControllerTimeMS > 50)
+//    {
+//        myAbj.pollController1.resetTimer = 1;
+//        myAbj.pollController1.startTime = chrono::steady_clock::now();
+//
+//        //polll here
+//        int presentController = glfwJoystickPresent(GLFW_JOYSTICK_1);
+////        cout << "presentController = " << presentController << endl;
+//
+//        if (presentController == 1)
+//        {
+//            int buttonCt; //11
+//            const unsigned char *controllerButtons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &buttonCt);
+////            cout << "buttonCt = " << buttonCt << endl;
+//
+//            int axesCt; //8
+//            const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axesCt);
+////            cout << "axesCt = " << axesCt << endl;
+//
+//            for (int i = 0; i < 11; ++i)
+//            {
+//                if (controllerButtons[i] == GLFW_PRESS)
+//                    cout << "pressing button : " << i << endl;
+//            }
+//
+//            if (controllerButtons[4] == GLFW_PRESS)
+//            {
+//                system("killall -9 omxplayer omxplayer.bin");
+//                speedUpOrSlowDown("decrease");
+//            }
+//
+//            if (controllerButtons[5] == GLFW_PRESS)
+//            {
+//                system("killall -9 omxplayer omxplayer.bin");
+//                speedUpOrSlowDown("increase");
+//            }
+//
+//            if (controllerButtons[6] == GLFW_PRESS)
+//            {
+//                myAbj.quitTgl = 1;
+//                system("killall -9 omxplayer omxplayer.bin");
+//            }
+//
+////            for (int i = 0; i < 8; ++i)
+////            {
+////                cout << "axes " << i << " = " << axes[i] << endl;
+//////                if (axes[i] == GLFW_PRESS)
+//////                    cout << "pressing button : " << i << endl;
+////            }
+//
+//        }
+//    }
+//
+//}
 
 
 int timeHHMMSS_toSec(string inTimeHHMMSS, bool colon)
