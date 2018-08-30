@@ -7,10 +7,10 @@
 void loopVideo();
 void pollController();
 
-void playPauseVid(string);
-void muteVid(string);
-void volumeUpDown(string, string);
-void speedUpOrSlowDown(string, string);
+void playPauseVid();
+void muteVid();
+void volumeUpDown(string);
+void speedUpOrSlowDown(string);
 
 #endif
 

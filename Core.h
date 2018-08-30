@@ -103,16 +103,12 @@ typedef struct
     GLFWwindow *GLFWwin;
     int width, height;
     glm::vec2 winPosGlobal;
-    string editMode;
 
     vector<volumePercent> volumePercentVec;
     vector<float> speedPercentVec;
 
     string soundOutput;
     bool quitTgl;
-
-    vector<string> editModeVec;
-    int editModeIdx;
 
     float deltaFrameTime;
     chrono::steady_clock::time_point currentFrameTime, lastFrameTime, loopTimeStart;

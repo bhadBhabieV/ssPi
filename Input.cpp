@@ -72,10 +72,6 @@ int roundNumber(double toRound)
     return round;
 }
 
-
-
-
-
 void keyCallback(GLFWwindow *myWin, int key, int scancode, int action, int mods)
 {
     /* PRESS */
@@ -94,95 +90,40 @@ void keyCallback(GLFWwindow *myWin, int key, int scancode, int action, int mods)
     /* RELEASE */
     if (action == GLFW_RELEASE)
     {
-        if      (key == GLFW_KEY_A) myAbj.editMode = "A";
-        else if (key == GLFW_KEY_S) myAbj.editMode = "S";
-        else if (key == GLFW_KEY_D) myAbj.editMode = "D";
-        else if (key == GLFW_KEY_F) myAbj.editMode = "F";
-
         if (key == GLFW_KEY_LEFT_BRACKET)
         {
             system("killall -9 omxplayer omxplayer.bin");
-
-            if (myAbj.editMode == "F")
-                speedUpOrSlowDown("decrease", "all");
-
-            else
-                speedUpOrSlowDown("decrease", "indy");
+            speedUpOrSlowDown("decrease");
         }
 
         else if (key == GLFW_KEY_RIGHT_BRACKET)
         {
             system("killall -9 omxplayer omxplayer.bin");
-
-            if (myAbj.editMode == "F")
-                speedUpOrSlowDown("increase", "all");
-
-            else
-                speedUpOrSlowDown("increase", "indy");
+            speedUpOrSlowDown("increase");
         }
 
         else if (key == GLFW_KEY_DOWN)
         {
             system("killall -9 omxplayer omxplayer.bin");
-
-            if (myAbj.editMode == "F")
-                volumeUpDown("decrease", "all");
-
-            else
-                volumeUpDown("decrease", "indy");
+            volumeUpDown("decrease");
         }
 
         else if (key == GLFW_KEY_UP)
         {
             system("killall -9 omxplayer omxplayer.bin");
-
-            if (myAbj.editMode == "F")
-                volumeUpDown("increase", "all");
-
-            else
-                volumeUpDown("increase", "indy");
-        }
-
-        else if (key == GLFW_KEY_LEFT)
-        {
-//            system("killall -9 omxplayer omxplayer.bin");
-
-            myAbj.editModeIdx = glm::max(0, myAbj.editModeIdx - 1);
-            myAbj.editMode = myAbj.editModeVec[myAbj.editModeIdx];
-
-            cout << "myAbj.editModeIdx / editMode = " << myAbj.editModeIdx << " " << myAbj.editMode <<endl;
-        }
-
-        else if (key == GLFW_KEY_RIGHT)
-        {
-//            system("killall -9 omxplayer omxplayer.bin");
-
-            myAbj.editModeIdx = glm::min(3, myAbj.editModeIdx + 1);
-            myAbj.editMode = myAbj.editModeVec[myAbj.editModeIdx];
-
-            cout << "myAbj.editModeIdx / editMode = " << myAbj.editModeIdx << " " << myAbj.editMode <<endl;
+            volumeUpDown("increase");
         }
 
         else if (key == GLFW_KEY_SPACE)
         {
             system("killall -9 omxplayer omxplayer.bin");
-
-            if (myAbj.editMode == "F")
-                playPauseVid("all");
-
-            else
-                playPauseVid("indy");
+            playPauseVid();
         }
 
         else if (key == GLFW_KEY_M)
         {
             system("killall -9 omxplayer omxplayer.bin");
-
-            if (myAbj.editMode == "F")
-                muteVid("all");
-
-            else
-                muteVid("indy");
+            muteVid();
         }
     }
 }

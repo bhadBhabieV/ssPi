@@ -7,7 +7,7 @@ void timeBasedStuff()
     myAbj.deltaFrameTime = chrono::duration_cast<ms>(myAbj.currentFrameTime - myAbj.lastFrameTime).count();
     myAbj.lastFrameTime = myAbj.currentFrameTime;
 
-    pollController();
+//    pollController();
 }
 
 void pollController()
@@ -29,17 +29,17 @@ void pollController()
 
         //polll here
         int presentController = glfwJoystickPresent(GLFW_JOYSTICK_1);
-        cout << "presentController = " << presentController << endl;
+//        cout << "presentController = " << presentController << endl;
 
         if (presentController == 1)
         {
             int buttonCt; //11
             const unsigned char *controllerButtons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &buttonCt);
-            cout << "buttonCt = " << buttonCt << endl;
+//            cout << "buttonCt = " << buttonCt << endl;
 
             int axesCt; //8
             const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axesCt);
-            cout << "axesCt = " << axesCt << endl;
+//            cout << "axesCt = " << axesCt << endl;
 
             for (int i = 0; i < 11; ++i)
             {
@@ -47,12 +47,30 @@ void pollController()
                     cout << "pressing button : " << i << endl;
             }
 
-            for (int i = 0; i < 8; ++i)
+            if (controllerButtons[4] == GLFW_PRESS)
             {
-                cout << "axes " << i << " = " << axes[i] << endl;
-//                if (axes[i] == GLFW_PRESS)
-//                    cout << "pressing button : " << i << endl;
+                system("killall -9 omxplayer omxplayer.bin");
+                speedUpOrSlowDown("decrease");
             }
+
+            if (controllerButtons[5] == GLFW_PRESS)
+            {
+                system("killall -9 omxplayer omxplayer.bin");
+                speedUpOrSlowDown("increase");
+            }
+
+            if (controllerButtons[6] == GLFW_PRESS)
+            {
+                myAbj.quitTgl = 1;
+                system("killall -9 omxplayer omxplayer.bin");
+            }
+
+//            for (int i = 0; i < 8; ++i)
+//            {
+//                cout << "axes " << i << " = " << axes[i] << endl;
+////                if (axes[i] == GLFW_PRESS)
+////                    cout << "pressing button : " << i << endl;
+//            }
 
         }
     }
