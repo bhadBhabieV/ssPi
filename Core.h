@@ -113,7 +113,7 @@ typedef struct
     float deltaFrameTime;
     chrono::steady_clock::time_point currentFrameTime, lastFrameTime, loopTimeStart;
 
-    PollController pollController1, autoRepeatPrevent5;
+    PollController pollController1, autoRepeatPrevent0, autoRepeatPrevent1, autoRepeatPrevent2, autoRepeatPrevent3, autoRepeatPrevent4, autoRepeatPrevent5, autoRepeatPrevent6;
 } Abj;
 
 
