@@ -237,6 +237,9 @@ void pollController()
 
                 system("killall -9 omxplayer omxplayer.bin");
                 goBackOrForward10Sec("back");
+
+//                system("killall -9 omxplayer omxplayer.bin");
+//                playPauseVid();
             }
 
             if (controllerButtons[3] == GLFW_PRESS && autoRepeatPrevent3MS >= 1000)
@@ -250,6 +253,11 @@ void pollController()
                 system("killall -9 omxplayer omxplayer.bin");
                 goBackOrForward10Sec("forward");
             }
+
+
+
+
+
 
             if (controllerButtons[4] == GLFW_PRESS && autoRepeatPrevent4MS >= 1000)
             {

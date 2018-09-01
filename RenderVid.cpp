@@ -18,22 +18,41 @@ void goBackOrForward10Sec(string forwardOrBack)
 
                     if (forwardOrBack == "back")
                     {
-                        loopVideoTimeMS -= 10000;
-
-//                        if (loopVideoTimeMS <= (j.secDuration * 1000) + 5000)
+//                        loopVideoTimeMS -= 10000;
+//
+//                        if (loopVideoTimeMS < 0)
+//                        {
+//                            system("killall -9 omxplayer omxplayer.bin");
+//                            i.resetPlayTimer = 1;
+//                            i.startTime = chrono::steady_clock::now();
+//                            i.secUsableRoundedStored = 0;
+//
+//                            i.loopTimeStart = myAbj.currentFrameTime; //
+//                            i.resetPlayTimer = 0;
+//
+                            stringstream ss;
+                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << "00:00:00" << " " << i.pathCurrent << " &";
+//                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " " << i.pathCurrent << " &";
+                            system(ss.str().c_str());
+//
+////                            loopVideo();
+//                        }
+//
+//                        else
 //                        {
 //
 //                        }
                     }
-
+//
                     if (forwardOrBack == "forward")
                     {
-                        loopVideoTimeMS += 10000;
-
-//                        if (loopVideoTimeMS >= (j.secDuration * 1000) + 5000)
-//                        {
+//                        myAbj.currentFrameTime  += 10000;
+//                        loopVideoTimeMS += 10000;
 //
-//                        }
+////                        if (loopVideoTimeMS >= (j.secDuration * 1000) + 5000)
+////                        {
+////
+////                        }
                     }
 
                     cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
@@ -152,8 +171,7 @@ void speedUpOrSlowDown(string myOperation)
 
         /* convert storedTime for next time */
         float storedSecTo100 = i.secUsableRoundedStored * speedOld;
-        float storedSecNewSpeed = storedSecTo100 / speedNew;
-        i.secUsableRoundedStored = storedSecNewSpeed;
+        i.secUsableRoundedStored = storedSecTo100 / speedNew;
 
         for (auto &j : i.videoDescriptVec)
         {
