@@ -85,8 +85,7 @@ int main(int argc, char *argv[])
 //    myAbj.editModePathHotkeyVec =
 //    {
 //        { "/home/pi/Desktop/source/repos/ssPi_videos/300/", "A" },
-////        { "/home/pi/Desktop/source/repos/ssPi_videos/A/", "A" },
-////        { "/home/pi/Desktop/source/repos/ssPi_videos/S/", "S" },
+////        { "/home/pi/Desktop/source/repos/ssPi_videos/A/", "B" },
 //    };
 //
 //    for (auto &i : myAbj.editModePathHotkeyVec)

@@ -1,6 +1,48 @@
 #include "RenderVid.h"
 
 
+void goBackOrForward10Sec(string forwardOrBack)
+{
+    for (auto &i : myAbj.videoKernelVec)
+    {
+        if (i.playTgl)
+        {
+            i.playTgl = 0;
+            i.time = getTime(i.editModeHotkey);
+
+            for (auto &j : i.videoDescriptVec)
+            {
+                if (j.pathFull == i.pathCurrent)
+                {
+                    int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
+
+                    if (forwardOrBack == "back")
+                    {
+                        loopVideoTimeMS -= 10000;
+
+//                        if (loopVideoTimeMS <= (j.secDuration * 1000) + 5000)
+//                        {
+//
+//                        }
+                    }
+
+                    if (forwardOrBack == "forward")
+                    {
+                        loopVideoTimeMS += 10000;
+
+//                        if (loopVideoTimeMS >= (j.secDuration * 1000) + 5000)
+//                        {
+//
+//                        }
+                    }
+
+                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
+                }
+            }
+        }
+    }
+}
+
 void loopVideo()
 {
     for (auto &i : myAbj.videoKernelVec)

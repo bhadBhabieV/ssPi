@@ -227,6 +227,30 @@ void pollController()
 ////            }
 //
 
+            if (controllerButtons[2] == GLFW_PRESS && autoRepeatPrevent2MS >= 1000)
+            {
+//                cout << "pressed 2 w/o autorepeat" << endl;
+//                cout << "autoRepeatPrevent2MS = " << autoRepeatPrevent2MS << endl;
+
+                myAbj.autoRepeatPrevent2.resetTimer = 1;
+                myAbj.autoRepeatPrevent2.startTime = chrono::steady_clock::now();
+
+                system("killall -9 omxplayer omxplayer.bin");
+                goBackOrForward10Sec("back");
+            }
+
+            if (controllerButtons[3] == GLFW_PRESS && autoRepeatPrevent3MS >= 1000)
+            {
+//                cout << "pressed 3 w/o autorepeat" << endl;
+//                cout << "autoRepeatPrevent3MS = " << autoRepeatPrevent3MS << endl;
+
+                myAbj.autoRepeatPrevent3.resetTimer = 1;
+                myAbj.autoRepeatPrevent3.startTime = chrono::steady_clock::now();
+
+                system("killall -9 omxplayer omxplayer.bin");
+                goBackOrForward10Sec("forward");
+            }
+
             if (controllerButtons[4] == GLFW_PRESS && autoRepeatPrevent4MS >= 1000)
             {
 //                cout << "pressed 4 w/o autorepeat" << endl;
@@ -260,10 +284,10 @@ void pollController()
                 system("killall -9 omxplayer omxplayer.bin");
             }
 
-            if (controllerButtons[6] == GLFW_PRESS && autoRepeatPrevent6MS >= 1000)
+            if (controllerButtons[7] == GLFW_PRESS && autoRepeatPrevent6MS >= 1000)
             {
-                myAbj.autoRepeatPrevent6.resetTimer = 1;
-                myAbj.autoRepeatPrevent6.startTime = chrono::steady_clock::now();
+                myAbj.autoRepeatPrevent7.resetTimer = 1;
+                myAbj.autoRepeatPrevent7.startTime = chrono::steady_clock::now();
 
                 system("killall -9 omxplayer omxplayer.bin");
                 playPauseVid();
