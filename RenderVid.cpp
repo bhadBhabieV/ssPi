@@ -130,7 +130,7 @@ void speedUpOrSlowDown(string myOperation)
 //                    cout << "speedNew = " << speedNew << endl;
 //                    cout << "usableTimeSecNew = " << usableTimeSecNew << endl;
 //                    cout << "i.time = " << i.time << endl;
-//                    cout << "i.pathCurrent = " << i.pathCurrent << endl;
+                cout << "i.pathCurrent = " << i.pathCurrent << endl;
 
                 cout << "speedNew = " << speedNew << endl;
                 cout << endl;

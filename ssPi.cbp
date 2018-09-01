@@ -41,6 +41,10 @@
 		<Unit filename="Core.h" />
 		<Unit filename="Input.cpp" />
 		<Unit filename="Input.h" />
+		<Unit filename="RenderVid.cpp" />
+		<Unit filename="RenderVid.h" />
+		<Unit filename="TimeBased.cpp" />
+		<Unit filename="TimeBased.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

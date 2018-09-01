@@ -99,6 +99,7 @@ typedef struct
 {
     vector<VideoKernel> videoKernelVec;
     vector<pathHotkey> editModePathHotkeyVec;
+    vector<PollController> autoRepeatVec;
 
     GLFWwindow *GLFWwin;
     int width, height;
@@ -113,7 +114,7 @@ typedef struct
     float deltaFrameTime;
     chrono::steady_clock::time_point currentFrameTime, lastFrameTime, loopTimeStart;
 
-    PollController pollController1, autoRepeatPrevent0, autoRepeatPrevent1, autoRepeatPrevent2, autoRepeatPrevent3, autoRepeatPrevent4, autoRepeatPrevent5, autoRepeatPrevent6;
+    PollController pollController1, autoRepeatPrevent0, autoRepeatPrevent1, autoRepeatPrevent2, autoRepeatPrevent3, autoRepeatPrevent4, autoRepeatPrevent5, autoRepeatPrevent6, autoRepeatPrevent7, autoRepeatPrevent8;
 } Abj;
 
 
