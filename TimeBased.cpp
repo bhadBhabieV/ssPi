@@ -232,10 +232,11 @@ void pollController()
 //                cout << "pressed 2 w/o autorepeat" << endl;
 //                cout << "autoRepeatPrevent2MS = " << autoRepeatPrevent2MS << endl;
 
+                system("killall -9 omxplayer omxplayer.bin");
+
                 myAbj.autoRepeatPrevent2.resetTimer = 1;
                 myAbj.autoRepeatPrevent2.startTime = chrono::steady_clock::now();
 
-                system("killall -9 omxplayer omxplayer.bin");
                 goBackOrForward10Sec("back");
 
 //                system("killall -9 omxplayer omxplayer.bin");
@@ -292,7 +293,7 @@ void pollController()
                 system("killall -9 omxplayer omxplayer.bin");
             }
 
-            if (controllerButtons[7] == GLFW_PRESS && autoRepeatPrevent6MS >= 1000)
+            if (controllerButtons[7] == GLFW_PRESS && autoRepeatPrevent7MS >= 1000)
             {
                 myAbj.autoRepeatPrevent7.resetTimer = 1;
                 myAbj.autoRepeatPrevent7.startTime = chrono::steady_clock::now();
@@ -391,3 +392,35 @@ string getTime(string editModeMatch)
 
     return "getTime() error";
 }
+
+//string getTime(string editModeMatch)
+//{
+//    for (auto &i : myAbj.videoKernelVec)
+//    {
+//        if (i.editModeHotkey == editModeMatch)
+//        {
+//            double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
+//            durSinceLastStart = glm::max(0, int(durSinceLastStart - 2)); //
+//
+//            int durSinceLastStartRounded = roundNumber(durSinceLastStart);
+//
+//            int HH, MM, SS;
+//
+////            cout << "i.secUsableRoundedStored BEFORE = " << i.secUsableRoundedStored << endl;
+//            SS = (i.secUsableRoundedStored + (durSinceLastStartRounded)) % 60;
+//            i.secUsableRoundedStored += durSinceLastStartRounded;
+////            cout << "i.secUsableRoundedStored AFTER = " << i.secUsableRoundedStored << endl;
+//
+//            MM = (durSinceLastStartRounded / 60) % 60;
+//            HH = MM / 60;
+//
+//            stringstream rr;
+//            rr << setfill('0') << setw(2) << HH << ":" << setw(2) << MM << ":" << setw(2) << SS;
+////            cout << "HH:MM:SS getTime() = " << rr.str() << endl;
+//
+//            return rr.str();
+//        }
+//    }
+//
+//    return "getTime() error";
+//}

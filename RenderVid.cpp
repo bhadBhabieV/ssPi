@@ -19,7 +19,7 @@ void goBackOrForward10Sec(string forwardOrBack)
                     if (forwardOrBack == "back")
                     {
 //                        loopVideoTimeMS -= 10000;
-//
+//9739436077
 //                        if (loopVideoTimeMS < 0)
 //                        {
 //                            system("killall -9 omxplayer omxplayer.bin");
@@ -31,8 +31,8 @@ void goBackOrForward10Sec(string forwardOrBack)
 //                            i.resetPlayTimer = 0;
 //
                             stringstream ss;
-                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << "00:00:00" << " " << i.pathCurrent << " &";
-//                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " " << i.pathCurrent << " &";
+//                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << "00:00:00" << " " << i.pathCurrent << " &";
+                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " " << i.pathCurrent << " &";
                             system(ss.str().c_str());
 //
 ////                            loopVideo();
