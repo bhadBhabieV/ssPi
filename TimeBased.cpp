@@ -232,11 +232,11 @@ void pollController()
 //                cout << "pressed 2 w/o autorepeat" << endl;
 //                cout << "autoRepeatPrevent2MS = " << autoRepeatPrevent2MS << endl;
 
-                system("killall -9 omxplayer omxplayer.bin");
 
                 myAbj.autoRepeatPrevent2.resetTimer = 1;
                 myAbj.autoRepeatPrevent2.startTime = chrono::steady_clock::now();
 
+                system("killall -9 omxplayer omxplayer.bin");
                 goBackOrForward10Sec("back");
 
 //                system("killall -9 omxplayer omxplayer.bin");
@@ -361,7 +361,7 @@ string secToHHMMSS(int inSec)
     return ss.str();
 }
 
-string getTime(string editModeMatch)
+string getTime(string editModeMatch, int timeToAdd)
 {
     for (auto &i : myAbj.videoKernelVec)
     {
@@ -370,7 +370,7 @@ string getTime(string editModeMatch)
             double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
             durSinceLastStart = glm::max(0, int(durSinceLastStart - 2)); //
 
-            int durSinceLastStartRounded = roundNumber(durSinceLastStart);
+            int durSinceLastStartRounded = roundNumber(durSinceLastStart) + timeToAdd;
 
             int HH, MM, SS;
 

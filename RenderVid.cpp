@@ -8,7 +8,7 @@ void goBackOrForward10Sec(string forwardOrBack)
         if (i.playTgl)
         {
             i.playTgl = 0;
-            i.time = getTime(i.editModeHotkey);
+            i.time = getTime(i.editModeHotkey, 10);
 
             for (auto &j : i.videoDescriptVec)
             {
@@ -46,6 +46,11 @@ void goBackOrForward10Sec(string forwardOrBack)
 //
                     if (forwardOrBack == "forward")
                     {
+                        stringstream ss;
+                        ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+//                        ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " " << i.pathCurrent << " &";
+                        system(ss.str().c_str());
+
 //                        myAbj.currentFrameTime  += 10000;
 //                        loopVideoTimeMS += 10000;
 //
@@ -114,7 +119,7 @@ void playPauseVid()
 
         if (!i.playTgl) //PAUSE the file at the stored time
         {
-            i.time = getTime(i.editModeHotkey);
+            i.time = getTime(i.editModeHotkey, 0);
             i.resetPlayTimer = 1;
         }
 
@@ -141,8 +146,7 @@ void muteVid()
 
         if (i.playTgl)
         {
-            i.playTgl = 0;
-            i.time = getTime(i.editModeHotkey);
+            i.time = getTime(i.editModeHotkey, 0);
 
             stringstream ss;
             ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
@@ -150,7 +154,6 @@ void muteVid()
 
             i.startTime = chrono::steady_clock::now();
             i.resetPlayTimer = 1;
-            i.playTgl = 1;
         }
     }
 }
@@ -163,7 +166,7 @@ void speedUpOrSlowDown(string myOperation)
         i.speedIdx = (myOperation == "decrease") ? glm::clamp(i.speedIdx - 1, 0, 8) : glm::clamp(i.speedIdx + 1, 0, 8);
         float speedNew = myAbj.speedPercentVec[i.speedIdx];
 
-        string usableTimeOld = getTime(i.editModeHotkey); /////
+        string usableTimeOld = getTime(i.editModeHotkey, 0); /////
 
         int usableTimeSecOld = timeHHMMSS_toSec(usableTimeOld, 1);
         int timeSec100 = usableTimeSecOld * speedOld;
@@ -220,7 +223,7 @@ void volumeUpDown(string myOperation)
 
         bool playTglStored = i.playTgl;
         i.playTgl = 0;
-        i.time = getTime(i.editModeHotkey);
+        i.time = getTime(i.editModeHotkey, 0);
 
         stringstream ss;
         ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";

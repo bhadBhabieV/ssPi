@@ -10,6 +10,6 @@ int timeHHMMSS_toSec(string, bool);
 string timeHHMMSS(string);
 string secToHHMMSS(int);
 
-string getTime(string);
+string getTime(string, int);
 
 #endif
