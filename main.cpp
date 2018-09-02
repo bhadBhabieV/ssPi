@@ -91,7 +91,8 @@ int main(int argc, char *argv[])
 
         VideoKernel myVideoKernel;
         myVideoKernel.playTgl = 0;
-        myVideoKernel.speedIdx = 3;
+        myVideoKernel.speedIdx = 1;
+//        myVideoKernel.speedIdx = 3;
         myVideoKernel.editModeHotkey = i.hotkey;
         myVideoKernel.pathCurrent = "test";
         myVideoKernel.secUsableRoundedStored = 0;
@@ -115,6 +116,8 @@ int main(int argc, char *argv[])
             string substrSpeed = fileWithExt.substr(0, 3);
             string substrSpeedF0 = substrSpeed.substr(0, 1);
             string substrSpeedF1 = substrSpeed.substr(1, 2);
+
+//            cout << "substrSpeed.speed / F0 / F1 = " << substrSpeed << " " << substrSpeedF0 << " " << substrSpeedF1 << endl;
 
             stringstream ss;
             ss << substrSpeedF0 << "." << substrSpeedF1;
@@ -143,6 +146,17 @@ int main(int argc, char *argv[])
         }
 
         myAbj.videoKernelVec.push_back(myVideoKernel);
+    }
+
+    for (auto &i : myAbj.videoKernelVec)
+    {
+        for (auto &j : i.videoDescriptVec)
+        {
+            if (j.speed == myAbj.speedPercentVec[i.speedIdx])
+            {
+                i.pathCurrent = j.pathFull;
+            }
+        }
     }
 
     srand(static_cast<int>(time(0)));
@@ -192,17 +206,12 @@ int main(int argc, char *argv[])
 	glClearColor(0.f, 0.f, 0.f, 0.f);
     glfwFocusWindow(myAbj.GLFWwin);
 
-    playPauseVid();
+    playPauseVid(); //
 
     do
     {
         timeBasedStuff();
-
-        loopVideo();
-
-//        auto time_point = chrono::system_clock::now();
-//        time_t ttp = chrono::system_clock::to_time_t(time_point);
-//        cout << "~~~ time: " << ctime(&ttp);
+        loopVideo(); //
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glViewport(0, 0, myAbj.width, myAbj.height);
@@ -229,7 +238,7 @@ void myAbjInit()
         { -2000, .1f },
         { -1204, .25f },
         { -602, .5f },
-//        { -249, .75f },
+        { -249, .75f },
         { 0, 1.f },
     };
 
