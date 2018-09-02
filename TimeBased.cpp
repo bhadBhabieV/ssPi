@@ -364,26 +364,38 @@ string getTime(string editModeMatch, int timeToAdd)
         {
             double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
             durSinceLastStart = glm::max(0, int(durSinceLastStart - 2)); //
-
             int durSinceLastStartRounded = roundNumber(durSinceLastStart) + timeToAdd;
+            durSinceLastStartRounded = glm::max(0, durSinceLastStartRounded);
+
+//            if (myAbj.printDurrr)
+            {
+                cout << "~~~~~~~~~~~~ durSinceLastStartRounded = " << durSinceLastStartRounded << endl;
+                myAbj.printDurrr = 1;
+            }
+
+//            int durSinceLastStartRounded = roundNumber(durSinceLastStart - timeToAdd);
+//            int durSinceLastStartRounded = roundNumber(durSinceLastStart - timeToAdd);
 
             int HH, MM, SS;
 
 
+            chrono::duration<int>timeToAddDur(timeToAdd);
+            myAbj.currentFrameTime += -timeToAddDur;
 
             for (auto &j : i.videoDescriptVec)
             {
                 if (j.pathFull == i.pathCurrent)
                 {
-                    if (durSinceLastStartRounded >= j.secDuration)
+//                    if (durSinceLastStartRounded >= j.secDuration)
+                    if (durSinceLastStartRounded >= j.secDuration || durSinceLastStartRounded <= 0)
                     {
-                        chrono::duration<int>timeToAddDur(timeToAdd);
-                        myAbj.currentFrameTime += timeToAddDur;
+//                        chrono::duration<int>timeToAddDur(timeToAdd);
+//                        myAbj.currentFrameTime += timeToAddDur;
 
 
-//                        i.resetPlayTimer = 1;
-//                        i.startTime = chrono::steady_clock::now();
-//                        i.secUsableRoundedStored = 0;
+                        i.resetPlayTimer = 1;
+                        i.startTime = chrono::steady_clock::now();
+                        i.secUsableRoundedStored = 0;
 
                         return "00:00:00";
                     }
@@ -410,6 +422,66 @@ string getTime(string editModeMatch, int timeToAdd)
 
     return "getTime() error";
 }
+
+//string getTime(string editModeMatch, int timeToAdd)
+//{
+//    for (auto &i : myAbj.videoKernelVec)
+//    {
+//        if (i.editModeHotkey == editModeMatch)
+//        {
+//            double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
+//            durSinceLastStart = glm::max(0, int(durSinceLastStart - 2)); //
+//            int durSinceLastStartRounded = roundNumber(durSinceLastStart) + timeToAdd;
+//
+////            int durSinceLastStartRounded = roundNumber(durSinceLastStart - timeToAdd);
+////            int durSinceLastStartRounded = roundNumber(durSinceLastStart - timeToAdd);
+//
+//            int HH, MM, SS;
+//
+//
+//            chrono::duration<int>timeToAddDur(timeToAdd);
+//            myAbj.currentFrameTime += timeToAddDur;
+//
+//            for (auto &j : i.videoDescriptVec)
+//            {
+//                if (j.pathFull == i.pathCurrent)
+//                {
+////                    if (durSinceLastStartRounded >= j.secDuration)
+//                    if (durSinceLastStartRounded >= j.secDuration || durSinceLastStartRounded <= 0)
+//                    {
+////                        chrono::duration<int>timeToAddDur(timeToAdd);
+////                        myAbj.currentFrameTime += timeToAddDur;
+//
+//
+//                        i.resetPlayTimer = 1;
+//                        i.startTime = chrono::steady_clock::now();
+//                        i.secUsableRoundedStored = 0;
+//
+//                        return "00:00:00";
+//                    }
+//                }
+//            }
+//
+////            if (durSinceLastStartRounded > )
+//
+////            cout << "i.secUsableRoundedStored BEFORE = " << i.secUsableRoundedStored << endl;
+//            SS = (i.secUsableRoundedStored + (durSinceLastStartRounded)) % 60;
+//            i.secUsableRoundedStored += durSinceLastStartRounded;
+////            cout << "i.secUsableRoundedStored AFTER = " << i.secUsableRoundedStored << endl;
+//
+//            MM = (durSinceLastStartRounded / 60) % 60;
+//            HH = MM / 60;
+//
+//            stringstream rr;
+//            rr << setfill('0') << setw(2) << HH << ":" << setw(2) << MM << ":" << setw(2) << SS;
+////            cout << "HH:MM:SS getTime() = " << rr.str() << endl;
+//
+//            return rr.str();
+//        }
+//    }
+//
+//    return "getTime() error";
+//}
 
 //string getTime(string editModeMatch, int timeToAdd)
 //{

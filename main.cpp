@@ -229,9 +229,11 @@ void myAbjInit()
         { -2000, .1f },
         { -1204, .25f },
         { -602, .5f },
-        { -249, .75f },
+//        { -249, .75f },
         { 0, 1.f },
     };
+
+    myAbj.printDurrr = 0;
 
     myAbj.soundOutput = "local";
     myAbj.speedPercentVec = { .25f, .5f, .75f, 1.f, 1.2f, 1.3f, 1.35f, 1.4f, 1.5f };
