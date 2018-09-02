@@ -11,7 +11,7 @@ void playPauseVid();
 void muteVid();
 void volumeUpDown(string);
 void speedUpOrSlowDown(string);
-void goBackOrForward10Sec(string);
+void goBackOrForwardSec(string);
 
 #endif
 

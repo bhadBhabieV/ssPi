@@ -1,20 +1,20 @@
 #include "RenderVid.h"
 
 
-void goBackOrForward10Sec(string forwardOrBack)
+void goBackOrForwardSec(string forwardOrBack)
 {
     for (auto &i : myAbj.videoKernelVec)
     {
         if (i.playTgl)
         {
-            i.playTgl = 0;
-            i.time = getTime(i.editModeHotkey, 10);
+//            i.time = getTime(i.editModeHotkey, 30);
+//            i.time = getTime(i.editModeHotkey, 0);
 
             for (auto &j : i.videoDescriptVec)
             {
                 if (j.pathFull == i.pathCurrent)
                 {
-                    int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
+//                    int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
 
                     if (forwardOrBack == "back")
                     {
@@ -46,21 +46,19 @@ void goBackOrForward10Sec(string forwardOrBack)
 //
                     if (forwardOrBack == "forward")
                     {
-                        stringstream ss;
-                        ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
-//                        ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " " << i.pathCurrent << " &";
-                        system(ss.str().c_str());
+                        if (i.playTgl)
+                        {
+                            i.time = getTime(i.editModeHotkey, 30);
 
-//                        myAbj.currentFrameTime  += 10000;
-//                        loopVideoTimeMS += 10000;
-//
-////                        if (loopVideoTimeMS >= (j.secDuration * 1000) + 5000)
-////                        {
-////
-////                        }
+                            stringstream ss;
+                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+                            system(ss.str().c_str());
+
+//                            i.startTime = chrono::steady_clock::now();
+//                            i.resetPlayTimer = 1;
+                        }
                     }
 
-                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
                 }
             }
         }
@@ -84,8 +82,10 @@ void loopVideo()
                 if (j.pathFull == i.pathCurrent)
                 {
                     int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
-//                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
+
+                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
 //                    cout << "j.secDuration MS = " << j.secDuration * 1000 << endl;
+//                    cout << "j.secDuration MS + 5000= " << (j.secDuration * 1000) + 5000 << endl;
     //
 //                    if (loopVideoTimeMS >= (j.secDuration * 1000) + 2000)
                     if (loopVideoTimeMS >= (j.secDuration * 1000) + 5000)
@@ -110,6 +110,52 @@ void loopVideo()
     }
 
 }
+
+//void loopVideo()
+//{
+//    for (auto &i : myAbj.videoKernelVec)
+//    {
+//        if (i.playTgl)
+//        {
+//            if (i.resetPlayTimer)
+//            {
+//                i.loopTimeStart = myAbj.currentFrameTime; //
+//                i.resetPlayTimer = 0;
+//            }
+//
+//            for (auto &j : i.videoDescriptVec)
+//            {
+//                if (j.pathFull == i.pathCurrent)
+//                {
+//                    int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
+//
+//                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
+//                    cout << "j.secDuration MS = " << j.secDuration * 1000 << endl;
+//                    cout << "j.secDuration MS + 5000= " << (j.secDuration * 1000) + 5000 << endl;
+//    //
+////                    if (loopVideoTimeMS >= (j.secDuration * 1000) + 2000)
+//                    if (loopVideoTimeMS >= (j.secDuration * 1000) + 5000)
+//                    {
+//                        cout << endl;
+//                        cout << "video has ended, begin new loop" << endl;
+//                        cout << endl;
+//
+//                        system("killall -9 omxplayer omxplayer.bin");
+//
+//                        stringstream ss;
+//                        ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.usableStartPos << " " << i.pathCurrent << " &";
+//                        system(ss.str().c_str());
+//
+//                        i.resetPlayTimer = 1;
+//                        i.startTime = chrono::steady_clock::now();
+//                        i.secUsableRoundedStored = 0;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//}
 
 void playPauseVid()
 {

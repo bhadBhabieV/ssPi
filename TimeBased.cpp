@@ -237,7 +237,7 @@ void pollController()
                 myAbj.autoRepeatPrevent2.startTime = chrono::steady_clock::now();
 
                 system("killall -9 omxplayer omxplayer.bin");
-                goBackOrForward10Sec("back");
+                goBackOrForwardSec("back");
 
 //                system("killall -9 omxplayer omxplayer.bin");
 //                playPauseVid();
@@ -252,13 +252,8 @@ void pollController()
                 myAbj.autoRepeatPrevent3.startTime = chrono::steady_clock::now();
 
                 system("killall -9 omxplayer omxplayer.bin");
-                goBackOrForward10Sec("forward");
+                goBackOrForwardSec("forward");
             }
-
-
-
-
-
 
             if (controllerButtons[4] == GLFW_PRESS && autoRepeatPrevent4MS >= 1000)
             {
@@ -280,7 +275,7 @@ void pollController()
                 myAbj.autoRepeatPrevent5.resetTimer = 1;
                 myAbj.autoRepeatPrevent5.startTime = chrono::steady_clock::now();
 
-                system("killall -9 omxplayer omxplayer.bin");
+//                system("killall -9 omxplayer omxplayer.bin");
                 speedUpOrSlowDown("increase");
             }
 
@@ -374,6 +369,29 @@ string getTime(string editModeMatch, int timeToAdd)
 
             int HH, MM, SS;
 
+
+
+            for (auto &j : i.videoDescriptVec)
+            {
+                if (j.pathFull == i.pathCurrent)
+                {
+                    if (durSinceLastStartRounded >= j.secDuration)
+                    {
+                        chrono::duration<int>timeToAddDur(timeToAdd);
+                        myAbj.currentFrameTime += timeToAddDur;
+
+
+//                        i.resetPlayTimer = 1;
+//                        i.startTime = chrono::steady_clock::now();
+//                        i.secUsableRoundedStored = 0;
+
+                        return "00:00:00";
+                    }
+                }
+            }
+
+//            if (durSinceLastStartRounded > )
+
 //            cout << "i.secUsableRoundedStored BEFORE = " << i.secUsableRoundedStored << endl;
             SS = (i.secUsableRoundedStored + (durSinceLastStartRounded)) % 60;
             i.secUsableRoundedStored += durSinceLastStartRounded;
@@ -393,7 +411,7 @@ string getTime(string editModeMatch, int timeToAdd)
     return "getTime() error";
 }
 
-//string getTime(string editModeMatch)
+//string getTime(string editModeMatch, int timeToAdd)
 //{
 //    for (auto &i : myAbj.videoKernelVec)
 //    {
@@ -402,9 +420,11 @@ string getTime(string editModeMatch, int timeToAdd)
 //            double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
 //            durSinceLastStart = glm::max(0, int(durSinceLastStart - 2)); //
 //
-//            int durSinceLastStartRounded = roundNumber(durSinceLastStart);
+//            int durSinceLastStartRounded = roundNumber(durSinceLastStart) + timeToAdd;
 //
 //            int HH, MM, SS;
+//
+////            if ()
 //
 ////            cout << "i.secUsableRoundedStored BEFORE = " << i.secUsableRoundedStored << endl;
 //            SS = (i.secUsableRoundedStored + (durSinceLastStartRounded)) % 60;
@@ -424,3 +444,5 @@ string getTime(string editModeMatch, int timeToAdd)
 //
 //    return "getTime() error";
 //}
+
+
