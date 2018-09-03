@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 	glClearColor(0.f, 0.f, 0.f, 0.f);
     glfwFocusWindow(myAbj.GLFWwin);
 
-    playPauseVid(); //
+//    playPauseVid(); //
 
     do
     {
@@ -241,8 +241,6 @@ void myAbjInit()
         { -249, .75f },
         { 0, 1.f },
     };
-
-    myAbj.printDurrr = 0;
 
     myAbj.soundOutput = "local";
     myAbj.speedPercentVec = { .25f, .5f, .75f, 1.f, 1.2f, 1.3f, 1.35f, 1.4f, 1.5f };

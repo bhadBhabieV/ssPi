@@ -111,8 +111,6 @@ typedef struct
     string soundOutput;
     bool quitTgl;
 
-    bool printDurrr;
-
     float deltaFrameTime;
     chrono::steady_clock::time_point currentFrameTime, lastFrameTime, loopTimeStart;
 

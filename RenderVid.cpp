@@ -5,11 +5,8 @@ void goBackOrForwardSec(string forwardOrBack)
 {
     for (auto &i : myAbj.videoKernelVec)
     {
-        if (i.playTgl)
+//        if (i.playTgl)
         {
-//            i.time = getTime(i.editModeHotkey, 30);
-//            i.time = getTime(i.editModeHotkey, 0);
-
             for (auto &j : i.videoDescriptVec)
             {
                 if (j.pathFull == i.pathCurrent)
@@ -23,9 +20,9 @@ void goBackOrForwardSec(string forwardOrBack)
 //                            i.time = getTime(i.editModeHotkey, -10);
                             i.time = getTime(i.editModeHotkey, -5);
 
-                            stringstream ss;
-                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
-                            system(ss.str().c_str());
+//                            stringstream ss;
+//                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+//                            system(ss.str().c_str());
 
 //                            i.startTime = chrono::steady_clock::now();
 //                            i.resetPlayTimer = 1;
@@ -39,9 +36,9 @@ void goBackOrForwardSec(string forwardOrBack)
 //                            i.time = getTime(i.editModeHotkey, 10);
                             i.time = getTime(i.editModeHotkey, 5);
 
-                            stringstream ss;
-                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
-                            system(ss.str().c_str());
+//                            stringstream ss;
+//                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+//                            system(ss.str().c_str());
 
 //                            i.startTime = chrono::steady_clock::now();
 //                            i.resetPlayTimer = 1;
@@ -53,7 +50,6 @@ void goBackOrForwardSec(string forwardOrBack)
 
             int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
 //            cout << "$$$$$$$$$$$$$ loopVideoTimeMS = " << loopVideoTimeMS << endl;
-            myAbj.printDurrr = 1;
         }
     }
 }
@@ -62,8 +58,9 @@ void loopVideo()
 {
     for (auto &i : myAbj.videoKernelVec)
     {
-        if (i.playTgl)
+//        if (i.playTgl)
         {
+
             if (i.resetPlayTimer)
             {
                 i.loopTimeStart = myAbj.currentFrameTime; //
@@ -76,14 +73,8 @@ void loopVideo()
                 {
                     int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
 
+                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
 //                    cout << "j.secDuration MS = " << j.secDuration * 1000 << endl;
-
-//                    if (myAbj.printDurrr)
-                    {
-                        cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl; // !!!!!!!!!!
-                        myAbj.printDurrr = 0;
-                    }
-
 //                    cout << "j.secDuration MS + 5000= " << (j.secDuration * 1000) + 5000 << endl;
     //
 //                    if (loopVideoTimeMS >= (j.secDuration * 1000) + 2000)
@@ -93,11 +84,11 @@ void loopVideo()
                         cout << "video has ended, begin new loop" << endl;
                         cout << endl;
 
-                        system("killall -9 omxplayer omxplayer.bin");
-
-                        stringstream ss;
-                        ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.usableStartPos << " " << i.pathCurrent << " &";
-                        system(ss.str().c_str());
+//                        system("killall -9 omxplayer omxplayer.bin");
+//
+//                        stringstream ss;
+//                        ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.usableStartPos << " " << i.pathCurrent << " &";
+//                        system(ss.str().c_str());
 
                         i.resetPlayTimer = 1;
                         i.startTime = chrono::steady_clock::now();
