@@ -355,28 +355,14 @@ string getTime(string editModeMatch, int timeToAdd)
     {
         if (i.editModeHotkey == editModeMatch)
         {
-
-//            double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
             double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>((chrono::steady_clock::now() + chrono::seconds(abs(timeToAdd)) ) - i.startTime).count();
             durSinceLastStart = glm::max(0, int(durSinceLastStart - 2)); //
-//            int durSinceLastStartRounded = roundNumber(durSinceLastStart) + timeToAdd;
             int durSinceLastStartRounded = roundNumber(durSinceLastStart);
-//            durSinceLastStartRounded = glm::max(0, durSinceLastStartRounded); /////
-            int HH, MM, SS;
 
             if (timeToAdd < 0)
                 durSinceLastStartRounded *= -1;
 
-//            chrono::duration<int>timeToAddDur(timeToAdd);
-//            myAbj.currentFrameTime += timeToAddDur;
-
-//            time_t printTime = std::chrono::system_clock::to_time_t(myAbj.currentFrameTime);
-//            cout << "currentFrameTime in getTime = " << printTime << endl;
-//
             cout << "dur since last start rounded = " << durSinceLastStartRounded << endl;
-            int testNeg = -2;
-            int usableTestNeg = abs(testNeg);
-            cout << "*********** usableTestNeg = " << usableTestNeg << endl;
 
 //            i.resetPlayTimer = 1;
             i.startTime = chrono::steady_clock::now();
@@ -404,6 +390,7 @@ string getTime(string editModeMatch, int timeToAdd)
 //                }
 //            }
 
+            int HH, MM, SS;
             cout << "$$$$$$ i.secUsableRoundedStored BEFORE = " << i.secUsableRoundedStored << endl;
             SS = (i.secUsableRoundedStored + (durSinceLastStartRounded)) % 60;
             i.secUsableRoundedStored += durSinceLastStartRounded;
