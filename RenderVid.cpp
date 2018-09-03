@@ -15,7 +15,7 @@ void goBackOrForwardSec(string forwardOrBack)
 
                     if (forwardOrBack == "back")
                     {
-                        if (i.playTgl)
+//                        if (i.playTgl)
                         {
                             i.time = getTime(i.editModeHotkey, -10);
 //                            i.time = getTime(i.editModeHotkey, -5);
@@ -24,7 +24,7 @@ void goBackOrForwardSec(string forwardOrBack)
                             ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
                             system(ss.str().c_str());
 
-//                            i.startTime = chrono::steady_clock::now();
+                            i.startTime = chrono::steady_clock::now();
 //                            i.resetPlayTimer = 1;
                         }
                     }
