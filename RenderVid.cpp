@@ -20,9 +20,9 @@ void goBackOrForwardSec(string forwardOrBack)
 //                            i.time = getTime(i.editModeHotkey, -10);
                             i.time = getTime(i.editModeHotkey, -5);
 
-//                            stringstream ss;
-//                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
-//                            system(ss.str().c_str());
+                            stringstream ss;
+                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+                            system(ss.str().c_str());
 
 //                            i.startTime = chrono::steady_clock::now();
 //                            i.resetPlayTimer = 1;
@@ -31,14 +31,14 @@ void goBackOrForwardSec(string forwardOrBack)
 //
                     if (forwardOrBack == "forward")
                     {
-                        if (i.playTgl)
+//                        if (i.playTgl)
                         {
 //                            i.time = getTime(i.editModeHotkey, 10);
                             i.time = getTime(i.editModeHotkey, 5);
 
-//                            stringstream ss;
-//                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
-//                            system(ss.str().c_str());
+                            stringstream ss;
+                            ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
+                            system(ss.str().c_str());
 
 //                            i.startTime = chrono::steady_clock::now();
 //                            i.resetPlayTimer = 1;

@@ -232,11 +232,8 @@ void pollController()
                 myAbj.autoRepeatPrevent2.resetTimer = 1;
                 myAbj.autoRepeatPrevent2.startTime = chrono::steady_clock::now();
 
-//                system("killall -9 omxplayer omxplayer.bin");
+                system("killall -9 omxplayer omxplayer.bin");
                 goBackOrForwardSec("back");
-
-//                system("killall -9 omxplayer omxplayer.bin");
-//                playPauseVid();
             }
 
             if (controllerButtons[3] == GLFW_PRESS && autoRepeatPrevent3MS >= 1000)
@@ -247,7 +244,7 @@ void pollController()
                 myAbj.autoRepeatPrevent3.resetTimer = 1;
                 myAbj.autoRepeatPrevent3.startTime = chrono::steady_clock::now();
 
-//                system("killall -9 omxplayer omxplayer.bin");
+                system("killall -9 omxplayer omxplayer.bin");
                 goBackOrForwardSec("forward");
             }
 
@@ -358,7 +355,8 @@ string getTime(string editModeMatch, int timeToAdd)
     {
         if (i.editModeHotkey == editModeMatch)
         {
-            double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
+//            double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>(chrono::steady_clock::now() - i.startTime).count();
+            double durSinceLastStart = chrono::duration_cast<chrono::duration<double>>((chrono::steady_clock::now() + chrono::seconds(timeToAdd) ) - i.startTime).count();
             durSinceLastStart = glm::max(0, int(durSinceLastStart - 2)); //
             int durSinceLastStartRounded = roundNumber(durSinceLastStart) + timeToAdd;
             durSinceLastStartRounded = glm::max(0, durSinceLastStartRounded);
@@ -370,7 +368,7 @@ string getTime(string editModeMatch, int timeToAdd)
 
 //            time_t printTime = std::chrono::system_clock::to_time_t(myAbj.currentFrameTime);
 //            cout << "currentFrameTime in getTime = " << printTime << endl;
-
+//
             cout << "dur since last start rounded = " << durSinceLastStartRounded << endl;
 
 //            i.resetPlayTimer = 1;

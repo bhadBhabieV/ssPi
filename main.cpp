@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 	glClearColor(0.f, 0.f, 0.f, 0.f);
     glfwFocusWindow(myAbj.GLFWwin);
 
-//    playPauseVid(); //
+    playPauseVid(); //
 
     do
     {
