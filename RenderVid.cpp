@@ -17,8 +17,8 @@ void goBackOrForwardSec(string forwardOrBack)
                     {
                         if (i.playTgl)
                         {
-//                            i.time = getTime(i.editModeHotkey, -10);
-                            i.time = getTime(i.editModeHotkey, -5);
+                            i.time = getTime(i.editModeHotkey, -10);
+//                            i.time = getTime(i.editModeHotkey, -5);
 
                             stringstream ss;
                             ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
@@ -33,14 +33,14 @@ void goBackOrForwardSec(string forwardOrBack)
                     {
 //                        if (i.playTgl)
                         {
-//                            i.time = getTime(i.editModeHotkey, 10);
-                            i.time = getTime(i.editModeHotkey, 5);
+                            i.time = getTime(i.editModeHotkey, 10);
+//                            i.time = getTime(i.editModeHotkey, 5);
 
                             stringstream ss;
                             ss << "omxplayer --no-osd --vol " << i.volUsable << " -o " << myAbj.soundOutput << " --pos " << i.time << " " << i.pathCurrent << " &";
                             system(ss.str().c_str());
 
-//                            i.startTime = chrono::steady_clock::now();
+                            i.startTime = chrono::steady_clock::now();
 //                            i.resetPlayTimer = 1;
                         }
                     }
@@ -48,7 +48,7 @@ void goBackOrForwardSec(string forwardOrBack)
                 }
             }
 
-            int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
+//            int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
 //            cout << "$$$$$$$$$$$$$ loopVideoTimeMS = " << loopVideoTimeMS << endl;
         }
     }
@@ -73,7 +73,7 @@ void loopVideo()
                 {
                     int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
 
-                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
+//                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
 //                    cout << "j.secDuration MS = " << j.secDuration * 1000 << endl;
 //                    cout << "j.secDuration MS + 5000= " << (j.secDuration * 1000) + 5000 << endl;
     //
