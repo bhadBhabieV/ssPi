@@ -61,7 +61,7 @@ void loopVideo()
                 {
                     int loopVideoTimeMS = chrono::duration_cast<ms>(myAbj.currentFrameTime - i.loopTimeStart).count() + (i.secUsableRoundedStored * 1000);
 
-                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl;
+//                    cout << "loopVideoTimeMS = " << loopVideoTimeMS << endl; //////
 //                    cout << "j.secDuration MS = " << j.secDuration * 1000 << endl;
 //                    cout << "j.secDuration MS + 5000= " << (j.secDuration * 1000) + 5000 << endl;
     //

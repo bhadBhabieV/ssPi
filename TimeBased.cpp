@@ -268,7 +268,7 @@ void pollController()
                 myAbj.autoRepeatPrevent5.resetTimer = 1;
                 myAbj.autoRepeatPrevent5.startTime = chrono::steady_clock::now();
 
-//                system("killall -9 omxplayer omxplayer.bin");
+                system("killall -9 omxplayer omxplayer.bin");
                 speedUpOrSlowDown("increase");
             }
 

@@ -91,8 +91,8 @@ int main(int argc, char *argv[])
 
         VideoKernel myVideoKernel;
         myVideoKernel.playTgl = 0;
-        myVideoKernel.speedIdx = 1;
-//        myVideoKernel.speedIdx = 3;
+//        myVideoKernel.speedIdx = 1;
+        myVideoKernel.speedIdx = 3;
         myVideoKernel.editModeHotkey = i.hotkey;
         myVideoKernel.pathCurrent = "test";
         myVideoKernel.secUsableRoundedStored = 0;
