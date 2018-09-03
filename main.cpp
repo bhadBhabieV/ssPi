@@ -242,6 +242,7 @@ void myAbjInit()
         { 0, 1.f },
     };
 
+    myAbj.seekTime = 10;
     myAbj.soundOutput = "local";
     myAbj.speedPercentVec = { .25f, .5f, .75f, 1.f, 1.2f, 1.3f, 1.35f, 1.4f, 1.5f };
 
